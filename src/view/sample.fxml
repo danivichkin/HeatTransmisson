@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="664.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+   <children>
+      <MenuBar prefHeight="22.0" prefWidth="664.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Создать " />
+                  <MenuItem mnemonicParsing="false" text="Открыть " />
+                  <MenuItem mnemonicParsing="false" text="Сохранить " />
+                  <MenuItem mnemonicParsing="false" text="Сохранить как" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Свойства" />
+                  <MenuItem mnemonicParsing="false" text="Выход" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Вид">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Рисунок" />
+              <MenuItem mnemonicParsing="false" text="Чертёж" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Расчёт">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Просмотр результатов" />
+                  <MenuItem mnemonicParsing="false" text="Отчёт" />
+                  <MenuItem mnemonicParsing="false" text="Сравнение результатов" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Сервис">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Настройки" />
+                  <MenuItem mnemonicParsing="false" text="Редактирование базы данных" />
+                  <MenuItem mnemonicParsing="false" text="Аппроксиматор таблиц" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Справка">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Руководство пользователя" />
+                  <MenuItem mnemonicParsing="false" text="О программе" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane prefHeight="452.0" prefWidth="664.0">
+         <children>
+            <TabPane layoutY="41.0" prefHeight="419.0" prefWidth="664.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.6000000000000227" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0">
+              <tabs>
+                <Tab text="Слои">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="664.0">
+                           <children>
+                              <SplitPane dividerPositions="0.44410876132930516" layoutY="-1.0" mouseTransparent="true" prefHeight="394.0" prefWidth="664.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="301.0">
+                                       <children>
+                                          <Button layoutX="14.0" layoutY="352.0" mnemonicParsing="false" text="Добавить" />
+                                          <Button layoutX="104.0" layoutY="352.0" mnemonicParsing="false" text="Изменить" />
+                                          <Button layoutX="194.0" layoutY="352.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Удалить" />
+                                          <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="328.0" prefWidth="250.0">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="247.0" />
+                                            </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="329.0" />
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Теплообмен ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="664.0">
+                           <children>
+                              <Label layoutX="539.0" layoutY="207.0" text="м2" />
+                              <Label layoutX="57.0" layoutY="142.0" text="Температура в рабочем пространстве" />
+                              <Label layoutX="57.0" layoutY="76.0" text="Температура окружающей среды" />
+                              <Label layoutX="57.0" layoutY="43.0" text="Положение поверхности" />
+                              <Label layoutX="541.0" layoutY="76.0" text="℃" />
+                              <Label layoutX="57.0" layoutY="174.0" text="Коэффициент теплоотдачи от внутрнней поверхности" />
+                              <Label layoutX="57.0" layoutY="110.0" text="Степень черноты внешней поверхности" />
+                              <Label layoutX="57.0" layoutY="207.0" text="Площадь поверхности" />
+                              <Label layoutX="541.0" layoutY="142.0" text="℃" />
+                              <TextField layoutX="374.0" layoutY="203.0" />
+                              <TextField layoutX="374.0" layoutY="72.0" />
+                              <TextField layoutX="374.0" layoutY="106.0" />
+                              <TextField layoutX="374.0" layoutY="138.0" />
+                              <TextField layoutX="374.0" layoutY="170.0" />
+                              <Label layoutX="540.0" layoutY="174.0" text="Вт/(м2*град)" />
+                              <ComboBox layoutX="373.0" layoutY="39.0" prefWidth="150.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+            <ToolBar layoutY="-6.0" prefHeight="42.0" prefWidth="664.0" AnchorPane.bottomAnchor="407.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.39999999999995595">
+              <items>
+                <Button cache="true" mnemonicParsing="false" onAction="#createFileButton" prefHeight="34.0" prefWidth="50.0" textAlignment="JUSTIFY" textOverrun="CLIP">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <tooltip>
+                        <Tooltip text="Создать новый файл" />
+                     </tooltip>
+                  </Button>
+                  <Button cache="true" mnemonicParsing="false" onAction="#openFileButton">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/open-file-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Открыть файл" />
+                     </tooltip>
+                  </Button>
+                  <Button cache="true" mnemonicParsing="false" onAction="#saveFileButton">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/save-file-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Сохранить файл" />
+                     </tooltip>
+                  </Button>
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="38.0" />
+                  <Button cache="true" mnemonicParsing="false" onAction="#resultsButton" text="Результаты">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/3c8e0dc516e38338cf67721dea113b59.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button cache="true" mnemonicParsing="false" onAction="#reportButton" text="Отчёт">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/experiment-results.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button cache="true" mnemonicParsing="false" onAction="#compareButton">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/icons8-весы-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Сравнение результатов" />
+                     </tooltip>
+                  </Button>
+                  <Button cache="true" mnemonicParsing="false" onAction="#changeDataBaseButton">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="База Даных" />
+                     </tooltip>
+                  </Button>
+                  <Button cache="true" mnemonicParsing="false" onAction="#settingsButton">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/icons/settings-cogwheel-button_icon-icons.com_72559.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Настройки" />
+                     </tooltip>
+                  </Button>
+              </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
