@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DatabaseTextFileRedactor implements Initializable{
+public class DatabaseTextFileRedactorController implements Initializable{
+
 
     @FXML
     private AnchorPane pane;
@@ -78,7 +79,6 @@ public class DatabaseTextFileRedactor implements Initializable{
 
     @FXML
     void saveButton(ActionEvent event) throws IOException {
-        MainDAOController.loadFromDB("/resources/database/default.txt");
     }
 
     @Override

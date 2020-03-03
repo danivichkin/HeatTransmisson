@@ -14,11 +14,11 @@ import java.io.IOException;
 public class Controller {
 
     @FXML
-    void changeDataBaseButton(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
+    void changeDataBaseButton(ActionEvent event) throws IOException {Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/database.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
