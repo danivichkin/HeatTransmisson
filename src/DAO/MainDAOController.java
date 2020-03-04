@@ -1,33 +1,61 @@
 package DAO;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.ObjectName;
+import org.junit.jupiter.api.Test;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class MainDAOController {
 
-    public static ObservableList<String> loadFromDB(Connection connection) throws IOException, SQLException {
+    private final static String url = "jdbc:sqlite:src/resources/database/mydatabase.sqlite";
+
+    public static ObservableList<?> loadFromDB() throws SQLException{
+        Connection connection = DriverManager.getConnection(url);
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from models");
+        ResultSet resultSet = statement.executeQuery("select * from Materials");
         ObservableList<String> data = FXCollections.observableArrayList();
         data.setAll(String.valueOf(resultSet));
-        System.out.println(data);
+        statement.close();
         return data;
     }
 
-    public static ObservableList onlyNameOfObject(ObservableList array){
-        ObservableList objectNames = FXCollections.observableArrayList();
-        for (int i = 0; i < array.size(); i++) {
+    public static ArrayList onlyNameOfObject() throws SQLException {
+        Connection connection = DriverManager.getConnection(url);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select name from Materials");
+        ArrayList<String> names = new ArrayList<String>();
+        while (resultSet.next()){
+            names.add(resultSet.getString("name"));
         }
+        statement.close();
+        return names;
+    }
+
+    public static ObservableList convertNameToObservable() throws SQLException {
+        ObservableList<ObjectName> objectNames = FXCollections.observableArrayList();
+        ArrayList names = MainDAOController.onlyNameOfObject();
+        ArrayList<ObjectName> objectNames1 = new ArrayList<>();
+        for (int i = 0; i < names.size(); i++) {
+            objectNames1.add(new ObjectName((String) names.get(i)));
+        }
+        objectNames.setAll(objectNames1);
         return objectNames;
     }
+
+    public static void removeSelectedObject(String objectName) throws SQLException {
+            Connection connection = DriverManager.getConnection(url);
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from Materials where name = ?");
+            preparedStatement.setString(1, String.valueOf(objectName));
+            preparedStatement.executeUpdate();
+    }
+
+    public static void changeSelectedObject(){
+
+    }
+
 }

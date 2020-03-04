@@ -1,24 +1,26 @@
 package controllers;
 
 import DAO.MainDAOController;
-import javafx.application.Application;
+import javafx.beans.Observable;
+import javafx.beans.property.Property;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import models.ObjectName;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -37,13 +39,13 @@ public class DatabaseController implements Initializable{
     private Button closeButton;
 
     @FXML
-    private ScrollPane ScrollPane;
+    private TableView<ObjectName> tableView;
 
     @FXML
-    private TableView<?> tableView;
+    private TableColumn<ObjectName, String> tableViewColumn;
 
-    @FXML
-    private TableColumn<String, String> tableViewColumn;
+    public DatabaseController() throws SQLException {
+    }
 
     @FXML
     void addButton(ActionEvent event) throws IOException {
@@ -71,15 +73,32 @@ public class DatabaseController implements Initializable{
     }
 
     @FXML
-    void removeButton(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/database.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    void removeButton(ActionEvent event) throws IOException, SQLException {
+        //TODO Tochno ydalit?
+        ObjectName objectName = tableView.getSelectionModel().getSelectedItem();
+        MainDAOController.removeSelectedObject(objectName.getName());
+        tableView.refresh();
+        refreshScene();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        }
+        tableViewColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        tableView.setItems(objectNames);
+    }
+
+
+    private ObservableList<ObjectName> objectNames = FXCollections.observableArrayList(MainDAOController.convertNameToObservable());
+
+    private void refreshScene() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/database.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        Stage stage1 = (Stage) addButton.getScene().getWindow();
+        stage1.close();
+    }
 }
+

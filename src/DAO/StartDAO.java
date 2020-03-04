@@ -8,8 +8,9 @@ public class StartDAO {
 
     public static void connect() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        String url = "jdbc:sqlite:identifier.sqlite";
+        String url = "jdbc:sqlite:mydatabase.sqlite";
         Connection conn = DriverManager.getConnection(url);
+        System.out.println("Done");
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 import java.io.IOException;
@@ -14,10 +15,12 @@ import java.io.IOException;
 public class Controller {
 
     @FXML
-    void changeDataBaseButton(ActionEvent event) throws IOException {Stage stage = new Stage();
+    void changeDataBaseButton(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/database.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.show();
     }
