@@ -1,8 +1,7 @@
 package controllers;
 
-import DAO.MainDAOController;
-import javafx.beans.Observable;
-import javafx.beans.property.Property;
+import alerts.AlertForDatabaseViews;
+import dao.MainDAOController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,16 +14,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.Material;
 import models.ObjectName;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DatabaseController implements Initializable{
+
+    public static Material objectToNextScene = new Material();
 
     @FXML
     private Button addButton;
@@ -49,21 +51,20 @@ public class DatabaseController implements Initializable{
 
     @FXML
     void addButton(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/databaseEdit.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        nextStage("/view/databaseAdd.fxml");
     }
 
     @FXML
-    void changeButton(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/database.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    void changeButton(ActionEvent event) throws IOException, SQLException {
+
+        ObjectName objectName = tableView.getSelectionModel().getSelectedItem();
+
+        if(objectName == null){
+            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для изменения не выбран");
+        } else {
+            objectToNextScene = MainDAOController.getObjectByName(objectName);
+            nextStage("/view/databaseEdit.fxml");
+        }
     }
 
     @FXML
@@ -74,11 +75,16 @@ public class DatabaseController implements Initializable{
 
     @FXML
     void removeButton(ActionEvent event) throws IOException, SQLException {
-        //TODO Tochno ydalit?
+
         ObjectName objectName = tableView.getSelectionModel().getSelectedItem();
-        MainDAOController.removeSelectedObject(objectName.getName());
-        tableView.refresh();
-        refreshScene();
+
+        if (objectName == null){
+            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для удаления не выбран");
+        } else {
+            MainDAOController.removeSelectedObject(objectName.getName());
+            tableView.refresh();
+            refreshScene();
+        }
     }
 
     @Override
@@ -87,12 +93,21 @@ public class DatabaseController implements Initializable{
         tableView.setItems(objectNames);
     }
 
-
     private ObservableList<ObjectName> objectNames = FXCollections.observableArrayList(MainDAOController.convertNameToObservable());
+
+    private void nextStage(String sceneURL) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource(sceneURL));
+        Scene scene = new Scene(root);
+        stage.getIcons().add(new Image("resources/icons/index1.png"));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     private void refreshScene() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/database.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/databaseDefault.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);

@@ -1,11 +1,10 @@
-package DAO;
+package dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Material;
 import models.ObjectName;
-import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -54,8 +53,37 @@ public class MainDAOController {
             preparedStatement.executeUpdate();
     }
 
-    public static void changeSelectedObject(){
+    public static Material getObjectByName(ObjectName name) throws SQLException {
+        Connection connection = DriverManager.getConnection(url);
+        PreparedStatement preparedStatement = connection.prepareStatement("select id, name, type, a, b, c," +
+                "plotnost from Materials where name = ?");
+        preparedStatement.setString(1, name.getName());
+        Material material = new Material();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+                material.setName(resultSet.getString("name"));
+                material.setType(resultSet.getInt("type"));
+                material.setA(resultSet.getDouble("A"));
+                material.setB(resultSet.getDouble("B"));
+                material.setC(resultSet.getDouble("C"));
+                material.setPlotnost(resultSet.getDouble("plotnost"));
+        }
+        System.out.println(material.toString());
+        return material;
+    }
 
+    public static void changeSelectedObject(Material material) throws SQLException {
+        Connection connection = DriverManager.getConnection(url);
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into Materials VALUES " +
+                "(?,?,?,?,?,?,?)");
+        preparedStatement.setInt(1, 2);
+        preparedStatement.setString(2, material.getName());
+        preparedStatement.setDouble(3, material.getType());
+        preparedStatement.setDouble(4, material.getA());
+        preparedStatement.setDouble(5, material.getB());
+        preparedStatement.setDouble(6, material.getB());
+        preparedStatement.setDouble(7, material.getPlotnost());
+        preparedStatement.executeUpdate();
     }
 
 }

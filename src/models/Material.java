@@ -4,12 +4,15 @@ public class Material {
 
     private String name;
     private int type;
-    private int A;
-    private int B;
-    private int C;
-    private int plotnost;
+    private double A;
+    private double B;
+    private double C;
+    private double plotnost;
 
-    public Material(String name, int type, int a, int b, int c, int plotnost) {
+    public Material() {
+    }
+
+    public Material(String name, int type, double a, double b, double c, double plotnost) {
         this.name = name;
         this.type = type;
         A = a;
@@ -17,7 +20,6 @@ public class Material {
         C = c;
         this.plotnost = plotnost;
     }
-
     public String getName() {
         return name;
     }
@@ -34,35 +36,47 @@ public class Material {
         this.type = type;
     }
 
-    public int getA() {
+    public double getA() {
         return A;
     }
 
-    public void setA(int a) {
+    public void setA(double a) {
         A = a;
     }
 
-    public int getB() {
+    public double getB() {
         return B;
     }
 
-    public void setB(int b) {
+    public void setB(double b) {
         B = b;
     }
 
-    public int getC() {
+    public double getC() {
         return C;
     }
 
-    public void setC(int c) {
+    public void setC(double c) {
         C = c;
     }
 
-    public int getPlotnost() {
+    public double getPlotnost() {
         return plotnost;
     }
 
-    public void setPlotnost(int plotnost) {
+    public void setPlotnost(double plotnost) {
         this.plotnost = plotnost;
+    }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", A=" + A +
+                ", B=" + B +
+                ", C=" + C +
+                ", plotnost=" + plotnost +
+                '}';
     }
 }

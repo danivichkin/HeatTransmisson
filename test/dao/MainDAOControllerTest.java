@@ -1,7 +1,8 @@
-package DAO;
+package dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Material;
 import models.ObjectName;
 import org.junit.jupiter.api.Test;
 
@@ -83,4 +84,23 @@ class MainDAOControllerTest {
         preparedStatement.setString(1, "1");
         preparedStatement.executeUpdate();
     }
-}
+
+    @Test
+    void getObjectByName() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/resources/database/mydatabase.sqlite");
+        PreparedStatement preparedStatement = connection.prepareStatement("select id, name, type, a, b, c," +
+                "plotnost from Materials where name = ?");
+        preparedStatement.setString(1, "1111");
+        Material material = new Material();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            material.setName(resultSet.getString("name"));
+            material.setType(resultSet.getInt("type"));
+            material.setA(resultSet.getDouble("A"));
+            material.setB(resultSet.getDouble("B"));
+            material.setC(resultSet.getDouble("C"));
+            material.setPlotnost(resultSet.getDouble("plotnost"));
+        }
+        System.out.println(material.toString());
+        }
+    }
