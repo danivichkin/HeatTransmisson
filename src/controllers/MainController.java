@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller {
+public class MainController {
 
     @FXML
     void changeDataBaseButton(ActionEvent event) throws IOException {

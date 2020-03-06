@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Material;
 import models.ObjectName;
@@ -24,9 +25,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class DatabaseController implements Initializable{
+public class DatabaseMainController implements Initializable{
 
     public static Material objectToNextScene = new Material();
+
+    @FXML
+    private AnchorPane AnchPane;
 
     @FXML
     private Button addButton;
@@ -45,9 +49,6 @@ public class DatabaseController implements Initializable{
 
     @FXML
     private TableColumn<ObjectName, String> tableViewColumn;
-
-    public DatabaseController() throws SQLException {
-    }
 
     @FXML
     void addButton(ActionEvent event) throws IOException {
@@ -82,7 +83,6 @@ public class DatabaseController implements Initializable{
             AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для удаления не выбран");
         } else {
             MainDAOController.removeSelectedObject(objectName.getName());
-            tableView.refresh();
             refreshScene();
         }
     }
@@ -91,6 +91,9 @@ public class DatabaseController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableViewColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         tableView.setItems(objectNames);
+    }
+
+    public DatabaseMainController() throws SQLException {
     }
 
     private ObservableList<ObjectName> objectNames = FXCollections.observableArrayList(MainDAOController.convertNameToObservable());
@@ -102,12 +105,14 @@ public class DatabaseController implements Initializable{
         stage.getIcons().add(new Image("resources/icons/index1.png"));
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.setAlwaysOnTop(true);
         stage.show();
     }
 
-    private void refreshScene() throws IOException {
+    private  void refreshScene() throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/databaseDefault.fxml"));
+        stage.getIcons().add(new Image("resources/icons/index1.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);

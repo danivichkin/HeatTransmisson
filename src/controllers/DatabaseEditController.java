@@ -1,5 +1,6 @@
 package controllers;
 
+import alerts.AlertForDatabaseViews;
 import dao.MainDAOController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,14 +14,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Material;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DatabaseEditController implements Initializable{
 
-    Material material = DatabaseController.objectToNextScene;
+    Material material = DatabaseMainController.objectToNextScene;
 
     @FXML
     private AnchorPane pane;
@@ -78,12 +78,16 @@ public class DatabaseEditController implements Initializable{
     @FXML
     void saveButton(ActionEvent event) throws SQLException {
         material.setName(nameTextField.getText());
+        material.setType(choiceConvectorFromStringToInt(typeChoise.getValue()));
+        material.setA(Double.parseDouble(aTextField.getText()));
         material.setB(Double.parseDouble(bTextField.getText()));
         material.setC(Double.parseDouble(cTextField.getText()));
         material.setPlotnost(Double.parseDouble(plotnostTextField.getText()));
         MainDAOController.removeSelectedObject(material.getName());
         MainDAOController.changeSelectedObject(material);
-        material.setA(Double.parseDouble(aTextField.getText()));
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.close();
+        AlertForDatabaseViews.defaultSuccess("", "Материал изменён успешно");
     }
 
 
@@ -94,6 +98,7 @@ public class DatabaseEditController implements Initializable{
         typeChoise.setValue("Огнеупор");
         initTextFields();
     }
+
 
     private void initTextFields(){
         String type = choiceConvectorFromIntToString(material.getType());
@@ -114,6 +119,19 @@ public class DatabaseEditController implements Initializable{
                 return mat = "Теплоизоляционный";
             case 3:
                 return mat = "Прочии материалы";
+        }
+        return mat;
+    }
+
+    private int choiceConvectorFromStringToInt(String value){
+        int mat = 0;
+        switch (value) {
+            case "Огнеупор":
+                return mat = 1;
+            case "Теплоизоляционный":
+                return mat = 2;
+            case "Прочии материалы":
+                return mat = 3;
         }
         return mat;
     }

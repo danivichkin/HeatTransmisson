@@ -17,4 +17,14 @@ public class AlertForDatabaseViews {
         alert.showAndWait();
     }
 
+    public static void defaultSuccess(String title, String context){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(context);
+        ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/resources/icons/index1.png"));
+        alert.getDialogPane().getScene().getWindow();
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
 }
