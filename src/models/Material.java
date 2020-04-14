@@ -2,24 +2,44 @@ package models;
 
 public class Material {
 
+    private int id;
     private String name;
-    private int type;
-    private double A;
-    private double B;
-    private double C;
-    private double plotnost;
+    private String type;
+    private Double coefficientA;
+    private Double coefficientB;
+    private Double coefficientC;
+    private Double density;
 
     public Material() {
     }
 
-    public Material(String name, int type, double a, double b, double c, double plotnost) {
+    public Material(int id, String name, String type, Double coefficientA, Double coefficientB, Double coefficientC, Double density) {
+        this.id = id;
         this.name = name;
         this.type = type;
-        A = a;
-        B = b;
-        C = c;
-        this.plotnost = plotnost;
+        this.coefficientA = coefficientA;
+        this.coefficientB = coefficientB;
+        this.coefficientC = coefficientC;
+        this.density = density;
     }
+
+    public Material(String name, String type, Double coefficientA, Double coefficientB, Double coefficientC, Double density) {
+        this.name = name;
+        this.type = type;
+        this.coefficientA = coefficientA;
+        this.coefficientB = coefficientB;
+        this.coefficientC = coefficientC;
+        this.density = density;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -28,55 +48,56 @@ public class Material {
         this.name = name;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public double getA() {
-        return A;
+    public Double getCoefficientA() {
+        return coefficientA;
     }
 
-    public void setA(double a) {
-        A = a;
+    public void setCoefficientA(Double coefficientA) {
+        this.coefficientA = coefficientA;
     }
 
-    public double getB() {
-        return B;
+    public Double getCoefficientB() {
+        return coefficientB;
     }
 
-    public void setB(double b) {
-        B = b;
+    public void setCoefficientB(Double coefficientB) {
+        this.coefficientB = coefficientB;
     }
 
-    public double getC() {
-        return C;
+    public Double getCoefficientC() {
+        return coefficientC;
     }
 
-    public void setC(double c) {
-        C = c;
+    public void setCoefficientC(Double coefficientC) {
+        this.coefficientC = coefficientC;
     }
 
-    public double getPlotnost() {
-        return plotnost;
+    public Double getDensity() {
+        return density;
     }
 
-    public void setPlotnost(double plotnost) {
-        this.plotnost = plotnost;
+    public void setDensity(Double density) {
+        this.density = density;
     }
 
     @Override
     public String toString() {
         return "Material{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                ", A=" + A +
-                ", B=" + B +
-                ", C=" + C +
-                ", plotnost=" + plotnost +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", coefficientA=" + coefficientA +
+                ", coefficientB=" + coefficientB +
+                ", coefficientC=" + coefficientC +
+                ", density=" + density +
                 '}';
     }
 }

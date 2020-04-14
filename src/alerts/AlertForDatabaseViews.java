@@ -11,7 +11,7 @@ public class AlertForDatabaseViews {
         alert.setTitle(title);
         alert.setContentText(context);
         ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/resources/icons/index1.png"));
-        alert.getDialogPane().getScene().getWindow();
+        ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.setAlertType(Alert.AlertType.ERROR );
         alert.setHeaderText(null);
         alert.showAndWait();
@@ -22,6 +22,7 @@ public class AlertForDatabaseViews {
         alert.setTitle(title);
         alert.setContentText(context);
         ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/resources/icons/index1.png"));
+        ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.getDialogPane().getScene().getWindow();
         alert.setHeaderText(null);
         alert.showAndWait();
