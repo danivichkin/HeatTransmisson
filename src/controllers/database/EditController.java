@@ -19,7 +19,10 @@ import java.util.ResourceBundle;
 
 public class EditController implements Initializable {
 
-    Material material = MainDatabaseController.objectToNextScene;
+    private final DAOController daoController = new DAOController();
+    private ObservableList<Material> materials;
+    private Material selectedMaterial;
+
 
     @FXML
     private TextField densityTextField;
@@ -45,6 +48,9 @@ public class EditController implements Initializable {
     @FXML
     private Button backButton;
 
+    public EditController() throws SQLException {
+    }
+
     @FXML
     void backButton(ActionEvent event) {
         Stage stage = (Stage) backButton.getScene().getWindow();
@@ -54,25 +60,44 @@ public class EditController implements Initializable {
     @FXML
     void saveButton(ActionEvent event) throws SQLException {
 
-        //TODO Переработать изменения объектов
         try {
-            material.setName(nameTextField.getText());
-            material.setType(typeChoice.getValue());
-            material.setCoefficientA(Double.parseDouble(coefficientATextField.getText()));
-            material.setCoefficientB(Double.parseDouble(coefficientBTextField.getText()));
-            material.setCoefficientC(Double.parseDouble(coefficientCTextField.getText()));
-            material.setDensity(Double.parseDouble(densityTextField.getText()));
+            selectedMaterial.setName(nameTextField.getText());
+            selectedMaterial.setType(typeChoice.getValue());
+            selectedMaterial.setCoefficientA(Double.parseDouble(coefficientATextField.getText()));
+            selectedMaterial.setCoefficientB(Double.parseDouble(coefficientBTextField.getText()));
+            selectedMaterial.setCoefficientC(Double.parseDouble(coefficientCTextField.getText()));
+            selectedMaterial.setDensity(Double.parseDouble(densityTextField.getText()));
 
-          //  DAOController.removeSelectedObject(material.getName());
-          //  DAOController.changeSelectedObject(material);
+            daoController.update(selectedMaterial);
+            
+            Material material = null; //Костыль для обновления объекта
+            materials.add(material);  //Костыль для обновления объекта
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.close();
-            AlertForDatabaseViews.defaultSuccess("", "Материал изменён успешно");
+            AlertForDatabaseViews.defaultSuccess("", "Материал успешно изменён");
+            materials.remove(material); //Костыль для обновления объекта
+
         } catch (Exception e) {
             AlertForDatabaseViews.defaultAlter("", "Некорректные значения");
         }
     }
+
+    public void setMaterials(ObservableList<Material> materials) {
+        this.materials = materials;
+    }
+
+    public void setSelectedMaterial(Material selectedMaterial) {
+        nameTextField.setText(selectedMaterial.getName());
+        typeChoice.setValue(selectedMaterial.getType());
+        coefficientATextField.setText(String.valueOf(selectedMaterial.getCoefficientA()));
+        coefficientBTextField.setText(String.valueOf(selectedMaterial.getCoefficientB()));
+        coefficientCTextField.setText(String.valueOf(selectedMaterial.getCoefficientC()));
+        densityTextField.setText(String.valueOf(selectedMaterial.getDensity()));
+        this.selectedMaterial = selectedMaterial;
+
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -80,22 +105,7 @@ public class EditController implements Initializable {
         ObservableList<String> langs = FXCollections.observableArrayList("Огнеупор", "Теплоизоляционный", "Прочии материалы");
         typeChoice.setItems(langs);
 
-        typeChoice.setValue(material.getType());
-        densityTextField.setText(String.valueOf(material.getDensity()));
-        nameTextField.setText(material.getName());
-        coefficientATextField.setText(String.valueOf(material.getCoefficientA()));
-        coefficientBTextField.setText(String.valueOf(material.getCoefficientB()));
-        coefficientCTextField.setText(String.valueOf(material.getCoefficientC()));
-
     }
 
-
-    //TODO S
-    private boolean isInputValid(TextField field) {
-        if (field.getText() == null || (field.getText().length() == 0)) {
-            AlertForDatabaseViews.defaultAlter("", "Не все поля заполнены");
-            return false;
-        } else return true;
-    }
 
 }

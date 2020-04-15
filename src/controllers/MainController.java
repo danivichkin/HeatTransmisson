@@ -1,6 +1,9 @@
 package controllers;
 
 
+import controllers.database.MainDatabaseController;
+import dao.DAOController;
+import dao.DAOService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,19 +13,25 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.Material;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    DAOController daoController = new DAOController();
+    DAOService daoService = new DAOService(daoController);
+    ObservableList<Material> observableListMainPage = daoService.getAllMaterials();
 
     @FXML
-    private ChoiceBox<String> choiceBox;
+    private ChoiceBox<String> choiceBoxForTemp;
 
     @FXML
     private TextField square;
@@ -40,22 +49,29 @@ public class MainController implements Initializable {
     private TextField returnСoefficient;
 
     @FXML
-    private TableView<String> tableView;
+    private TableView<Material> tableView;
 
     @FXML
     private Button addButton;
 
     @FXML
-    private TableColumn<?, ?> tableColumn;
+    private TableColumn<?, ?> tableColumnName;
+
+    public MainController() throws SQLException {
+    }
 
     @FXML
     void changeDataBaseButton(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/database/Main.fxml"));
+        Parent root = loader.load();
+        MainDatabaseController controller = loader.getController();
+        controller.setMaterials(observableListMainPage);
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/database/DefaultScene.fxml"));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setTitle("База данных");
         stage.getIcons().add(new Image("resources/icons/index1.png"));
         stage.setResizable(false);
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -66,8 +82,6 @@ public class MainController implements Initializable {
 
     @FXML
     void addButton(ActionEvent event) {
-        ObservableList<String> newList = FXCollections.observableArrayList("");
-        newList.addAll(defaultList);
     }
 
     @FXML
@@ -100,23 +114,18 @@ public class MainController implements Initializable {
 
     }
 
-    //TODO принимать все объекты класса Material
-    //TODO реализовать заполнение полей объектами 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-       // tableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-      //  tableView.setItems(defaultList);
+        ObservableList<Material> defaultMaterialList = FXCollections.observableArrayList();
+
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        tableView.setItems(observableListMainPage);
 
         ObservableList<String> langs = FXCollections.observableArrayList("Вертикальная стенка", "Свод", "Под");
-//        choiceBox.setItems(langs);
-//        choiceBox.setValue("Вертикальная стенка");
+        choiceBoxForTemp.setItems(langs);
+        choiceBoxForTemp.setValue("Вертикальная стенка");
 
     }
-
-  //  private ObservableList<ObjectName> objectNames = FXCollections.observableArrayList(DAOController.convertNameToObservable());
-
-    private ObservableList<String> defaultList = FXCollections.observableArrayList("");
 
 }

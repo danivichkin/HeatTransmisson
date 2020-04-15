@@ -7,14 +7,14 @@
 
 <AnchorPane fx:id="AnchPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.database.MainDatabaseController">
    <children>
-      <TableView fx:id="tableView" layoutX="-3.0" prefHeight="322.0" prefWidth="524.0">
+      <TableView fx:id="tableView" layoutX="5.0" prefHeight="339.0" prefWidth="506.0">
         <columns>
           <TableColumn fx:id="tableViewColumnMaterial" prefWidth="88.79998970031738" text="Материалы" />
-            <TableColumn fx:id="tableViewColumnType" prefWidth="113.59996795654297" text="Тип" />
-            <TableColumn fx:id="tableViewColumnCoefficientA" prefWidth="80.79998779296875" text="A" />
-            <TableColumn fx:id="tableViewColumnCoefficientB" prefWidth="73.60003662109375" text="B" />
-            <TableColumn fx:id="tableViewColumnCoefficientC" prefWidth="73.5999755859375" text="C" />
-            <TableColumn fx:id="tableViewColumnDensity" prefWidth="95.20004272460938" text="Плотность" />
+            <TableColumn fx:id="tableViewColumnType" prefWidth="99.20000457763672" text="Тип" />
+            <TableColumn fx:id="tableViewColumnCoefficientA" prefWidth="63.20001220703125" text="A" />
+            <TableColumn fx:id="tableViewColumnCoefficientB" prefWidth="68.79998779296875" text="B" />
+            <TableColumn fx:id="tableViewColumnCoefficientC" minWidth="0.0" prefWidth="58.4000244140625" text="C" />
+            <TableColumn fx:id="tableViewColumnDensity" prefWidth="153.59994506835938" text="Плотность" />
         </columns>
       </TableView>
       <Button fx:id="addButton" layoutX="148.0" layoutY="359.0" mnemonicParsing="false" onAction="#addButton" prefHeight="26.0" prefWidth="94.0" text="Добавить" />

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 class DAOServiceTest {
 
     DAOController daoController = new DAOController();
-    DAOService daoService = new DAOService(daoController);
 
     DAOServiceTest() throws SQLException {
     }

@@ -1,8 +1,6 @@
 package dao;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import models.Material;
 
@@ -11,19 +9,17 @@ import java.util.List;
 
 public class DAOService {
 
-    private final DAOController daoController;
+    private DAOController daoController;
 
     public DAOService(DAOController daoController) {
         this.daoController = daoController;
     }
 
-
     public ObservableList<Material> getAllMaterials() throws SQLException {
-
-        //TODO верунть все объекты
-        List<Material> materials = daoController.select();
-        ObservableList<Material> materials1 = FXCollections.observableArrayList();
-        return materials1;
+        List<Material> materialArrayList = daoController.select();
+        ObservableList<Material> observableList = FXCollections.observableArrayList();
+        observableList.addAll(materialArrayList);
+        return observableList;
     }
 
     public ObservableList<String> getOnlyNamesAsObservableList() throws SQLException {

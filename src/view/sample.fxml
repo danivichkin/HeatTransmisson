@@ -74,7 +74,7 @@
                            <children>
                               <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="322.0" prefWidth="249.0">
                                 <columns>
-                                  <TableColumn fx:id="tableColumn" prefWidth="248.79999408721923" text="Материалы" />
+                                  <TableColumn fx:id="tableColumnName" prefWidth="248.79999408721923" text="Материалы" />
                                 </columns>
                               </TableView>
                               <Button layoutX="194.0" layoutY="345.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Удалить" />
@@ -104,7 +104,7 @@
                               <TextField fx:id="tempInTheWorkSpace" layoutX="374.0" layoutY="138.0" promptText="1395" text="1395" />
                               <TextField fx:id="returnСoefficient" layoutX="374.0" layoutY="170.0" promptText="20" text="20" />
                               <Label layoutX="540.0" layoutY="174.0" text="Вт/(м2*град)" />
-                              <ChoiceBox fx:id="choiсeBox" layoutX="374.0" layoutY="39.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="choiceBoxForTemp" layoutX="374.0" layoutY="39.0" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
                   </content>

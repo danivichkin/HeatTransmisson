@@ -3,7 +3,7 @@ package controllers.database;
 import alerts.AlertForDatabaseViews;
 import dao.DAOController;
 import dao.DAOService;
-import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,68 +28,75 @@ import java.util.ResourceBundle;
 
 public class MainDatabaseController implements Initializable {
 
-    //Объект для изменения в следующей сцене
-    public static Material objectToNextScene = new Material();
+    private DAOController daoController = new DAOController();
 
-    //TODO fix this shit
-    DAOController daoController = new DAOController();
-    DAOService daoService = new DAOService(daoController);
+    private ObservableList<Material> materials;
+    private Material selectedMaterial;
 
     @FXML
     private AnchorPane AnchPane;
-
     @FXML
-    private TableView<?> tableView;
-
+    private TableView<Material> tableView;
     @FXML
     private TableColumn<?, ?> tableViewColumnMaterial;
-
     @FXML
     private TableColumn<?, ?> tableViewColumnType;
-
     @FXML
     private TableColumn<?, ?> tableViewColumnCoefficientA;
-
     @FXML
     private TableColumn<?, ?> tableViewColumnCoefficientB;
-
     @FXML
     private TableColumn<?, ?> tableViewColumnCoefficientC;
-
     @FXML
     private TableColumn<?, ?> tableViewColumnDensity;
-
     @FXML
     private Button addButton;
-
     @FXML
     private Button removeButton;
-
     @FXML
     private Button changeButton;
-
     @FXML
     private Button closeButton;
-
 
     public MainDatabaseController() throws SQLException {
     }
 
     @FXML
     void addButton(ActionEvent event) throws IOException {
-        nextStage("/view/database/Add.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/database/Add.fxml"));
+        Parent root = loader.load();
+        AddController controller = loader.getController();
+        controller.setMaterials(materials);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Добавление нового материала");
+        stage.getIcons().add(new Image("resources/icons/index1.png"));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void changeButton(ActionEvent event) throws IOException, SQLException {
 
+        selectedMaterial = tableView.getSelectionModel().getSelectedItem();
 
-//        if (objectName == null) {
-//            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для изменения не выбран");
-//        } else {
-       //     objectToNextScene = DAOController.getObjectByName(objectName);
-//            nextStage("/view/database/Edit.fxml");
-//        }
+        if (selectedMaterial == null) {
+            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для изменения не выбран");
+        } else {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/database/Edit.fxml"));
+            Parent root = loader.load();
+            EditController controller = loader.getController();
+            controller.setSelectedMaterial(selectedMaterial);
+            controller.setMaterials(materials);
+            Scene scene = new Scene(root);
+            stage.setTitle("Изменение материала");
+            stage.getIcons().add(new Image("resources/icons/index1.png"));
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
@@ -100,58 +108,41 @@ public class MainDatabaseController implements Initializable {
     @FXML
     void removeButton(ActionEvent event) throws IOException, SQLException {
 
+        selectedMaterial = tableView.getSelectionModel().getSelectedItem();
 
-//        if (objectName == null) {
-//            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для удаления не выбран");
-//        } else {
-       //     DAOController.removeSelectedObject(objectName.getName());
-//            refreshScene();
-//        }
+        if (selectedMaterial == null) {
+            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для удаления не выбран");
+        } else {
+            materials.remove(selectedMaterial);
+            daoController.delete(selectedMaterial);
+            AlertForDatabaseViews.defaultSuccess("Удаление", "Материал удалён");
+        }
+    }
+
+
+    public void setMaterials(ObservableList<Material> materials) {
+        tableViewColumnMaterial.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        tableViewColumnType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        tableViewColumnCoefficientA.setCellValueFactory(new PropertyValueFactory<>("coefficientA"));
+        tableViewColumnCoefficientB.setCellValueFactory(new PropertyValueFactory<>("coefficientB"));
+        tableViewColumnCoefficientC.setCellValueFactory(new PropertyValueFactory<>("coefficientC"));
+        tableViewColumnDensity.setCellValueFactory(new PropertyValueFactory<>("Density"));
+        tableView.setItems(materials);
+        this.materials = materials;
+
+        materials.addListener(new ListChangeListener<Material>() {
+            @Override
+            public void onChanged(Change<? extends Material> change) {
+                System.out.println("Changed detected");
+            }
+        });
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        try {
-
-            ObservableList<String> materials = FXCollections.observableArrayList(daoService.getOnlyNamesAsObservableList());
-            tableViewColumnMaterial.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            tableViewColumnType.setCellValueFactory(new PropertyValueFactory<>("Type"));
-            tableViewColumnCoefficientA.setCellValueFactory(new PropertyValueFactory<>("A"));
-            tableViewColumnCoefficientB.setCellValueFactory(new PropertyValueFactory<>("B"));
-            tableViewColumnCoefficientC.setCellValueFactory(new PropertyValueFactory<>("C"));
-            tableViewColumnDensity.setCellValueFactory(new PropertyValueFactory<>("Density"));
-          //  tableView.setItems();
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-
     }
 
-    private void nextStage(String sceneURL) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource(sceneURL));
-        Scene scene = new Scene(root);
-        stage.getIcons().add(new Image("resources/icons/index1.png"));
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-    }
-
-    private void refreshScene() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/database/DefaultScene.fxml"));
-        stage.getIcons().add(new Image("resources/icons/index1.png"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        Stage stage1 = (Stage) addButton.getScene().getWindow();
-        stage1.close();
-    }
 }
 

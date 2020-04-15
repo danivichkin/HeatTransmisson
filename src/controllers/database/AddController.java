@@ -19,26 +19,21 @@ import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
 
-    Material material = new Material();
+    private final DAOController daoController = new DAOController();
+    private ObservableList<Material> materials;
 
     @FXML
     private TextField densityTextField;
-
     @FXML
     private TextField coefficientBTextField;
-
     @FXML
     private TextField coefficientCTextField;
-
     @FXML
     private TextField coefficientATextField;
-
     @FXML
     private TextField nameTextField;
-
     @FXML
     private ChoiceBox<String> typeChoice;
-
     @FXML
     private Button backButton;
 
@@ -50,8 +45,7 @@ public class AddController implements Initializable {
 
     @FXML
     void saveButton(ActionEvent event) throws SQLException {
-
-        //TODO saveObject
+        Material material = new Material();
         try {
             material.setName(nameTextField.getText());
             material.setType(typeChoice.getValue());
@@ -59,9 +53,8 @@ public class AddController implements Initializable {
             material.setCoefficientB(Double.parseDouble(coefficientBTextField.getText()));
             material.setCoefficientC(Double.parseDouble(coefficientCTextField.getText()));
             material.setDensity(Double.parseDouble(densityTextField.getText()));
-
-          //  DAOController.changeSelectedObject(material);
-
+            daoController.insert(material);
+            materials.add(material);
             Stage stage = (Stage) nameTextField.getScene().getWindow();
             stage.close();
             AlertForDatabaseViews.defaultSuccess("", "Материал добавлен успешно");
@@ -70,6 +63,11 @@ public class AddController implements Initializable {
         }
     }
 
+    public AddController() throws SQLException { }
+
+    public void setMaterials(ObservableList<Material> materials) {
+        this.materials = materials;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
