@@ -6,15 +6,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.pageOne.AddNewLayer">
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.pageOne.AddNewLayer">
    <children>
       <Label layoutX="45.0" layoutY="48.0" text="Название слоя" />
       <Label layoutX="45.0" layoutY="85.0" text="Толщина слоя, м" />
       <TextField fx:id="nameOfLayerTextField" layoutX="165.0" layoutY="44.0" />
       <TextField fx:id="layerThicknessTextField" layoutX="165.0" layoutY="81.0" />
       <Button layoutX="346.0" layoutY="68.0" mnemonicParsing="false" onAction="#addNewMaterial" text="Выбрать материал" />
-      <Button layoutX="157.0" layoutY="297.0" mnemonicParsing="false" onAction="#saveButton" prefHeight="26.0" prefWidth="82.0" text="Сохранить" />
+      <Button layoutX="157.0" layoutY="297.0" mnemonicParsing="false" onAction="#saveButton" prefHeight="26.0" prefWidth="82.0" text="Добавить" />
       <Button layoutX="264.0" layoutY="297.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="82.0" text="Отмена" />
       <TextField fx:id="lambdaTextField" layoutX="165.0" layoutY="124.0" />
       <Label layoutX="91.0" layoutY="128.0" text="λ" />

@@ -77,8 +77,8 @@
                                   <TableColumn fx:id="tableColumnName" prefWidth="248.79999408721923" text="Материалы" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="194.0" layoutY="345.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Удалить" />
-                              <Button layoutX="103.0" layoutY="346.0" mnemonicParsing="false" text="Изменить" />
+                              <Button layoutX="194.0" layoutY="345.0" mnemonicParsing="false" onAction="#deleteLayerButton" prefHeight="26.0" prefWidth="69.0" text="Удалить" />
+                              <Button layoutX="103.0" layoutY="346.0" mnemonicParsing="false" onAction="#changeLayerButton" text="Изменить" />
                               <Button fx:id="addButton" layoutX="14.0" layoutY="346.0" mnemonicParsing="false" onAction="#addButton" text="Добавить" />
                               <Separator layoutX="284.0" layoutY="-38.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="13.0" />
                            </children>

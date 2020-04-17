@@ -1,7 +1,6 @@
 package controllers.main.pageOne;
 
 import alerts.AlertsDefault;
-import controllers.database.AddController;
 import dao.DAOController;
 import dao.DAOService;
 import javafx.collections.ObservableList;
@@ -10,12 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Layer;
 import models.Material;
 
 import java.io.IOException;
@@ -29,6 +31,9 @@ public class SelectNewMaterial implements Initializable {
     private final DAOService daoService = new DAOService(daoController);
     private final ObservableList<Material> observableListOfMaterials = daoService.getAllMaterials();
     private Material selectedMaterial;
+
+    private ObservableList<Layer> observableList; //Костыль из за некоррекнтой работы FX
+
 
     @FXML
     private TextField nameOfMaterialTextField;
@@ -68,17 +73,27 @@ public class SelectNewMaterial implements Initializable {
 
         selectedMaterial = tableView.getSelectionModel().getSelectedItem();
 
-        if (selectedMaterial==null){
-            AlertsDefault.defaultAlter("Ошибка","Материал не выбран");
+        if (selectedMaterial == null) {
+            AlertsDefault.defaultAlter("Ошибка", "Материал не выбран");
         } else {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/addNewLayer.fxml"));
-            Parent root = loader.load();
-            AddNewLayer controller = loader.getController();
-            controller.setMaterial(selectedMaterial);
+            //Костыль обновления тк сеттер работал некорректно
             Stage stage = (Stage) typeTextField.getScene().getWindow();
             stage.close();
-            System.out.println(controller.getMaterial());
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/addNewLayer.fxml"));
+            Stage newStage = new Stage();
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            AddNewLayer controller = loader.getController();
+            controller.setMaterial(selectedMaterial);
+            controller.setObservableList(observableList);
+
+            newStage.setScene(scene);
+            newStage.setTitle("Добавление слоя");
+            newStage.getIcons().add(new Image("resources/icons/index1.png"));
+            newStage.setResizable(false);
+            newStage.show();
         }
 
     }
@@ -108,5 +123,9 @@ public class SelectNewMaterial implements Initializable {
             densityTextField.setText(String.valueOf(selectedMaterial.getDensity()));
 
         });
-}
+    }
+
+    public void setObservableList(ObservableList<Layer> observableList) {
+        this.observableList = observableList;
+    }
 }

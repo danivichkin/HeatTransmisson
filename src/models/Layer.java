@@ -1,24 +1,24 @@
 package models;
 
 public class Layer {
-    private Material material;
+    private String name;
     private Double layerThickness;
     private Double lambda;
 
-    public Layer(Material material, Double layerThickness, Double lambda) {
-        this.material = material;
+    public Layer(String name, Double layerThickness, Double lambda) {
+        this.name = name;
         this.layerThickness = layerThickness;
         this.lambda = lambda;
     }
 
     public Layer(){}
 
-    public Material getMaterial() {
-        return material;
+    public String getName() {
+        return name;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getLayerThickness() {

@@ -1,6 +1,5 @@
 package controllers.main.pageOne;
 
-import controllers.main.MainController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddNewLayer implements Initializable {
+public class EditLayer implements Initializable {
 
     private Material material;
     private ObservableList<Layer> observableList;
@@ -39,7 +38,6 @@ public class AddNewLayer implements Initializable {
     private TextField coefficientBTextField;
     @FXML
     private TextField coefficientCTextField;
-
 
     @FXML
     void addNewMaterial(ActionEvent event) throws IOException {
@@ -63,12 +61,6 @@ public class AddNewLayer implements Initializable {
     }
 
     @FXML
-    void backButton(ActionEvent event) {
-        Stage stage = (Stage) lambdaTextField.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
     void saveButton(ActionEvent event) throws IOException {
         Layer layer = new Layer();
         layer.setName(nameOfLayerTextField.getText());
@@ -82,28 +74,6 @@ public class AddNewLayer implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        nameOfLayerTextField.setText("#default");
-        layerThicknessTextField.setText("0");
-        lambdaTextField.setText("0");
-
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
         nameOfLayerTextField.setText(material.getName());
-        coefficientATextField.setText(String.valueOf(material.getCoefficientA()));
-        coefficientBTextField.setText(String.valueOf(material.getCoefficientB()));
-        coefficientCTextField.setText(String.valueOf(material.getCoefficientC()));
-        this.material = material;
-    }
-
-    public void setObservableList(ObservableList<Layer> observableList) {
-        this.observableList = observableList;
     }
 }
-
-
