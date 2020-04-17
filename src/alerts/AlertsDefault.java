@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class AlertForDatabaseViews {
+public class AlertsDefault {
 
     public static void defaultAlter(String title, String context){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

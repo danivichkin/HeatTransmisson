@@ -1,6 +1,6 @@
 package controllers.database;
 
-import alerts.AlertForDatabaseViews;
+import alerts.AlertsDefault;
 import dao.DAOController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,11 +75,11 @@ public class EditController implements Initializable {
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.close();
-            AlertForDatabaseViews.defaultSuccess("", "Материал успешно изменён");
+            AlertsDefault.defaultSuccess("", "Материал успешно изменён");
             materials.remove(material); //Костыль для обновления объекта
 
         } catch (Exception e) {
-            AlertForDatabaseViews.defaultAlter("", "Некорректные значения");
+            AlertsDefault.defaultAlter("", "Некорректные значения");
         }
     }
 

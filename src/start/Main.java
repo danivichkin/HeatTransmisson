@@ -11,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/view/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/main/sample.fxml"));
         primaryStage.setTitle("Heat Transmission");
         primaryStage.getIcons().add(new Image("resources/icons/index1.png"));
         primaryStage.setScene(new Scene(root, 664, 484));

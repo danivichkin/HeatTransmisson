@@ -1,7 +1,8 @@
-package controllers;
+package controllers.main;
 
 
 import controllers.database.MainDatabaseController;
+import controllers.main.pageOne.AddNewLayer;
 import dao.DAOController;
 import dao.DAOService;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.Layer;
 import models.Material;
 
 
@@ -29,6 +31,7 @@ public class MainController implements Initializable {
     DAOController daoController = new DAOController();
     DAOService daoService = new DAOService(daoController);
     ObservableList<Material> observableListMainPage = daoService.getAllMaterials();
+
 
     @FXML
     private ChoiceBox<String> choiceBoxForTemp;
@@ -81,7 +84,19 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void addButton(ActionEvent event) {
+    void addButton(ActionEvent event) throws IOException {
+        Layer layer = new Layer();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/addNewLayer.fxml"));
+        Parent root = loader.load();
+        AddNewLayer controller = loader.getController();
+        controller.setLayer(layer);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Добавления нового слоя");
+        stage.getIcons().add(new Image("resources/icons/index1.png"));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -125,6 +140,9 @@ public class MainController implements Initializable {
         ObservableList<String> langs = FXCollections.observableArrayList("Вертикальная стенка", "Свод", "Под");
         choiceBoxForTemp.setItems(langs);
         choiceBoxForTemp.setValue("Вертикальная стенка");
+
+
+
 
     }
 

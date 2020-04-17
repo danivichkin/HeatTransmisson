@@ -1,8 +1,7 @@
 package controllers.database;
 
-import alerts.AlertForDatabaseViews;
+import alerts.AlertsDefault;
 import dao.DAOController;
-import dao.DAOService;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,7 +27,6 @@ import java.util.ResourceBundle;
 public class MainDatabaseController implements Initializable {
 
     private DAOController daoController = new DAOController();
-
     private ObservableList<Material> materials;
     private Material selectedMaterial;
 
@@ -82,7 +79,7 @@ public class MainDatabaseController implements Initializable {
         selectedMaterial = tableView.getSelectionModel().getSelectedItem();
 
         if (selectedMaterial == null) {
-            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для изменения не выбран");
+            AlertsDefault.defaultAlter("Ошибка", "Материал для изменения не выбран");
         } else {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/database/Edit.fxml"));
@@ -111,11 +108,11 @@ public class MainDatabaseController implements Initializable {
         selectedMaterial = tableView.getSelectionModel().getSelectedItem();
 
         if (selectedMaterial == null) {
-            AlertForDatabaseViews.defaultAlter("Ошибка", "Материал для удаления не выбран");
+            AlertsDefault.defaultAlter("Ошибка", "Материал для удаления не выбран");
         } else {
             materials.remove(selectedMaterial);
             daoController.delete(selectedMaterial);
-            AlertForDatabaseViews.defaultSuccess("Удаление", "Материал удалён");
+            AlertsDefault.defaultSuccess("Удаление", "Материал удалён");
         }
     }
 

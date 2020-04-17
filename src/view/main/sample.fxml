@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="664.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<VBox prefWidth="664.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.MainController">
    <children>
       <MenuBar prefHeight="22.0" prefWidth="664.0">
         <menus>
@@ -117,7 +117,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/add.png" />
+                              <Image url="@../../resources/icons/add.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -132,7 +132,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/open-file-button.png" />
+                              <Image url="@../../resources/icons/open-file-button.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -144,7 +144,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/save-file-button.png" />
+                              <Image url="@../../resources/icons/save-file-button.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -157,7 +157,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/3c8e0dc516e38338cf67721dea113b59.png" />
+                              <Image url="@../../resources/icons/3c8e0dc516e38338cf67721dea113b59.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -166,7 +166,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/experiment-results.png" />
+                              <Image url="@../../resources/icons/experiment-results.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -175,7 +175,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/icons8-весы-64.png" />
+                              <Image url="@../../resources/icons/icons8-весы-64.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -187,7 +187,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/icon.png" />
+                              <Image url="@../../resources/icons/icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -199,7 +199,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/icons/settings-cogwheel-button_icon-icons.com_72559.png" />
+                              <Image url="@../../resources/icons/settings-cogwheel-button_icon-icons.com_72559.png" />
                            </image>
                         </ImageView>
                      </graphic>

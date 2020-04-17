@@ -1,6 +1,6 @@
 package controllers.database;
 
-import alerts.AlertForDatabaseViews;
+import alerts.AlertsDefault;
 import dao.DAOController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,9 +57,9 @@ public class AddController implements Initializable {
             materials.add(material);
             Stage stage = (Stage) nameTextField.getScene().getWindow();
             stage.close();
-            AlertForDatabaseViews.defaultSuccess("", "Материал добавлен успешно");
+            AlertsDefault.defaultSuccess("", "Материал добавлен успешно");
         } catch (Exception e) {
-            AlertForDatabaseViews.defaultAlter("", "Некорректные значения");
+            AlertsDefault.defaultAlter("", "Некорректные значения");
         }
     }
 
