@@ -90,14 +90,6 @@ public class Material {
 
     @Override
     public String toString() {
-        return "Material{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", coefficientA=" + coefficientA +
-                ", coefficientB=" + coefficientB +
-                ", coefficientC=" + coefficientC +
-                ", density=" + density +
-                '}';
+        return name;
     }
 }

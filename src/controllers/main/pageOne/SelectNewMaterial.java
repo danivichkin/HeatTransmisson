@@ -31,6 +31,9 @@ public class SelectNewMaterial implements Initializable {
     private final DAOService daoService = new DAOService(daoController);
     private final ObservableList<Material> observableListOfMaterials = daoService.getAllMaterials();
     private Material selectedMaterial;
+    private Layer layer;
+    private Material material;
+    private String URL;
 
     private ObservableList<Layer> observableList; //Костыль из за некоррекнтой работы FX
 
@@ -81,16 +84,33 @@ public class SelectNewMaterial implements Initializable {
             Stage stage = (Stage) typeTextField.getScene().getWindow();
             stage.close();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/addNewLayer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(URL));
             Stage newStage = new Stage();
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            AddNewLayer controller = loader.getController();
-            controller.setMaterial(selectedMaterial);
-            controller.setObservableList(observableList);
+
+            switch (URL){
+                case ("/view/main/pageOne/EditLayer.fxml"):
+
+                    observableList.remove(layer);
+                    Layer layer1 = new Layer(selectedMaterial, layer.getLayerThickness(), layer.getLambda());
+
+                    EditLayer controller = loader.getController();
+                    controller.setMaterial(selectedMaterial);
+                    controller.setObservableList(observableList);
+                    controller.setLayer(layer1);
+                    newStage.setTitle("Изменение слоя");
+                    break;
+                case ("/view/main/pageOne/addNewLayer.fxml"):
+                    AddNewLayer controller1 = loader.getController();
+                    controller1.setMaterial(selectedMaterial);
+                    controller1.setObservableList(observableList);
+                    controller1.setLayer(layer);
+                    newStage.setTitle("Добавление слоя");
+                    break;
+            }
 
             newStage.setScene(scene);
-            newStage.setTitle("Добавление слоя");
             newStage.getIcons().add(new Image("resources/icons/index1.png"));
             newStage.setResizable(false);
             newStage.show();
@@ -127,5 +147,15 @@ public class SelectNewMaterial implements Initializable {
 
     public void setObservableList(ObservableList<Layer> observableList) {
         this.observableList = observableList;
+    }
+
+    public void setLayer(Layer layer) {
+        this.layer = layer;
+    }
+
+    public void setURL(String URL) { this.URL = URL; }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 }

@@ -4,6 +4,7 @@ package controllers.main;
 import alerts.AlertsDefault;
 import controllers.database.MainDatabaseController;
 import controllers.main.pageOne.AddNewLayer;
+import controllers.main.pageOne.EditLayer;
 import dao.DAOController;
 import dao.DAOService;
 import javafx.beans.InvalidationListener;
@@ -91,6 +92,7 @@ public class MainController implements Initializable {
         Parent root = loader.load();
         AddNewLayer controller = loader.getController();
         controller.setObservableList(layerObservableList);
+        controller.setLayer(new Layer());
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setTitle("Добавления нового слоя");
@@ -146,17 +148,18 @@ public class MainController implements Initializable {
     @FXML
     void changeLayerButton(ActionEvent event) throws IOException {
 
-        Layer layer = tableView.getSelectionModel().getSelectedItem();
-        if (layer == null) {
+        Layer selectedLayer = tableView.getSelectionModel().getSelectedItem();
+        if (selectedLayer == null) {
             AlertsDefault.defaultAlter("Ошибка", "Материал не выбран");
         } else {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/addNewLayer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/EditLayer.fxml"));
             Parent root = loader.load();
-            AddNewLayer controller = loader.getController();
+            EditLayer controller = loader.getController();
+            controller.setObservableList(layerObservableList);
+            controller.setLayer(selectedLayer);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
-            stage.setTitle("Добавления нового слоя");
+            stage.setTitle("Изменение слоя");
             stage.getIcons().add(new Image("resources/icons/index1.png"));
             stage.setResizable(false);
             stage.setScene(scene);
@@ -168,11 +171,14 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //default values
-        layerObservableList.add(new Layer());
-        layerObservableList.add(new Layer());
-        layerObservableList.add(new Layer());
+        Material material = new Material("Name1", "type1", 1.0, 1.0, 1.0, 2.0);
+        Material material2 = new Material("Name2", "type2", 21.0, 21.0, 21.0, 22.0);
+        Material material3 = new Material("Name3", "type3", 31.0, 31.0, 31.0, 32.0);
+        layerObservableList.add(new Layer(material, 1.1, 1.2));
+        layerObservableList.add(new Layer(material2, 1.1, 1.2));
+        layerObservableList.add(new Layer(material3, 1.1, 1.2));
 
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Material"));
         tableView.setItems(layerObservableList);
 
         ObservableList<String> langs = FXCollections.observableArrayList("Вертикальная стенка", "Свод", "Под");

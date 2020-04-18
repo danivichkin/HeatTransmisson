@@ -1,6 +1,6 @@
 package controllers.main.pageOne;
 
-import controllers.main.MainController;
+import alerts.AlertsDefault;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +23,7 @@ public class AddNewLayer implements Initializable {
 
     private Material material;
     private ObservableList<Layer> observableList;
+    private Layer layer;
 
     @FXML
     private AnchorPane Pane;
@@ -46,9 +47,16 @@ public class AddNewLayer implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main/pageOne/selectNewMaterial.fxml"));
         Parent root = loader.load();
 
+        Layer layer = new Layer(material,
+               Double.valueOf(layerThicknessTextField.getText()),  Double.valueOf(lambdaTextField.getText()));
+
         //Костыль из за некоррекнтой работы FX
-        SelectNewMaterial selectNewMaterial = loader.getController();
-        selectNewMaterial.setObservableList(observableList);
+
+        SelectNewMaterial controller = loader.getController();
+        controller.setObservableList(observableList);
+        controller.setURL("/view/main/pageOne/addNewLayer.fxml");
+        controller.setLayer(layer);
+
 
         Stage stage = new Stage();
         Scene scene = new Scene(root);
@@ -70,14 +78,19 @@ public class AddNewLayer implements Initializable {
 
     @FXML
     void saveButton(ActionEvent event) throws IOException {
-        Layer layer = new Layer();
-        layer.setName(nameOfLayerTextField.getText());
-        layer.setLambda(Double.valueOf(lambdaTextField.getText()));
-        layer.setLayerThickness(Double.valueOf(layerThicknessTextField.getText()));
-        observableList.add(layer);
 
-        Stage currentStage = (Stage) lambdaTextField.getScene().getWindow();
-        currentStage.close();
+        if (material == null) {
+            AlertsDefault.defaultAlter("Ошибка", "Материал не выбран");
+        } else {
+
+            Layer layer = new Layer(material,
+                    Double.valueOf(layerThicknessTextField.getText()),  Double.valueOf(lambdaTextField.getText()));
+
+            observableList.add(layer);
+
+            Stage currentStage = (Stage) lambdaTextField.getScene().getWindow();
+            currentStage.close();
+        }
     }
 
     @Override
@@ -104,6 +117,18 @@ public class AddNewLayer implements Initializable {
     public void setObservableList(ObservableList<Layer> observableList) {
         this.observableList = observableList;
     }
+
+    public void setLayer(Layer layer) {
+        if (layer.getLayerThickness() == null || layer.getLambda() == null){
+            layerThicknessTextField.setText("0");
+            lambdaTextField.setText("0");
+        } else {
+            layerThicknessTextField.setText(String.valueOf(layer.getLayerThickness()));
+            lambdaTextField.setText(String.valueOf(layer.getLambda()));
+        }
+        this.layer = layer;
+    }
+
 }
 
 
